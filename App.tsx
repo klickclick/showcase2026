@@ -51,6 +51,13 @@ const App: React.FC = () => {
 
       // If matches found, replace static players.
       if (teamPlayers.length > 0) {
+        // Sort players by Number (Ascending: 1, 2, 3...)
+        teamPlayers.sort((a, b) => {
+          const numA = parseInt(a.number) || 0;
+          const numB = parseInt(b.number) || 0;
+          return numA - numB;
+        });
+
         return { ...team, players: teamPlayers }; // Override static
       }
       return team;
