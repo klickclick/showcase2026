@@ -17,8 +17,26 @@ const App: React.FC = () => {
   const [teams, setTeams] = useState<Team[]>(TEAMS);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Check for valid session on mount
+  useEffect(() => {
+    const sessionDetail = localStorage.getItem('auth_session');
+    if (sessionDetail) {
+      try {
+        const { token, expiry } = JSON.parse(sessionDetail);
+        // Check if session is expired (e.g. 24 hours)
+        if (Date.now() < expiry) {
+          handleLogin(token, true); // True = auto-login from storage
+        } else {
+          localStorage.removeItem('auth_session'); // Clear expired session
+        }
+      } catch (e) {
+        localStorage.removeItem('auth_session');
+      }
+    }
+  }, []);
+
   // Called by LoginScreen when user submits password
-  const handleLogin = async (password: string): Promise<boolean> => {
+  const handleLogin = async (password: string, isAutoLogin = false): Promise<boolean> => {
     try {
       const fetchedPlayers = await fetchPlayerData(password);
 
@@ -26,6 +44,16 @@ const App: React.FC = () => {
       if (fetchedPlayers.length > 0) {
         distributePlayersToTeams(fetchedPlayers);
         setIsAuthenticated(true);
+
+        if (!isAutoLogin) {
+          // Save session with 2h expiry
+          const TwoHours = 2 * 60 * 60 * 1000;
+          const sessionData = {
+            token: password,
+            expiry: Date.now() + TwoHours
+          };
+          localStorage.setItem('auth_session', JSON.stringify(sessionData));
+        }
         return true;
       }
       return false;
