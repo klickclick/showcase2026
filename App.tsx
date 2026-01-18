@@ -7,50 +7,56 @@ import PlayerCard from './components/PlayerCard';
 import GrainOverlay from './components/GrainOverlay';
 import { ViewState, Team, Player } from './types';
 import { TEAMS } from './constants';
-import { fetchPlayerData, SHEET_URL } from './utils/sheetService';
+import LoginScreen from './components/LoginScreen';
+import { fetchPlayerData } from './utils/sheetService';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>(ViewState.TEAMS);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [teams, setTeams] = useState<Team[]>(TEAMS);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const fetchedPlayers = await fetchPlayerData(SHEET_URL);
+  // Called by LoginScreen when user submits password
+  const handleLogin = async (password: string): Promise<boolean> => {
+    try {
+      const fetchedPlayers = await fetchPlayerData(password);
 
-        // If we have fetched players, distribute them into teams
-        if (fetchedPlayers.length > 0) {
-          const updatedTeams = TEAMS.map(team => {
-            // Helper for loose matching (ignore spaces and case)
-            const normalize = (str: string) => str ? str.toLowerCase().replace(/\s/g, '') : '';
-
-            // Find players whose "CurrentTeam" or "Team" matches the Team Name or ID
-            const teamPlayers = fetchedPlayers.filter(p => {
-              const pTeam = normalize(p.showcaseTeam);
-              const tName = normalize(team.name); // "team1"
-              const tId = normalize(team.id);     // "t1"
-
-              return pTeam === tName || pTeam === tId || pTeam.includes(tName);
-            });
-
-            // If matches found, replace static players.
-            if (teamPlayers.length > 0) {
-              return { ...team, players: teamPlayers }; // Override static
-            }
-            return team;
-          });
-          setTeams(updatedTeams);
-        }
-      } catch (error) {
-        console.error("Failed to load sheet data", error);
-        // Keep default TEAMS on error
+      // If we got players, password is correct
+      if (fetchedPlayers.length > 0) {
+        distributePlayersToTeams(fetchedPlayers);
+        setIsAuthenticated(true);
+        return true;
       }
-    };
+      return false;
+    } catch (error) {
+      console.error("Login failed:", error);
+      return false;
+    }
+  };
 
-    loadData();
-  }, []);
+  const distributePlayersToTeams = (fetchedPlayers: Player[]) => {
+    const updatedTeams = TEAMS.map(team => {
+      // Helper for loose matching (ignore spaces and case)
+      const normalize = (str: string) => str ? str.toLowerCase().replace(/\s/g, '') : '';
+
+      // Find players whose "CurrentTeam" or "Team" matches the Team Name or ID
+      const teamPlayers = fetchedPlayers.filter(p => {
+        const pTeam = normalize(p.showcaseTeam);
+        const tName = normalize(team.name); // "team1"
+        const tId = normalize(team.id);     // "t1"
+
+        return pTeam === tName || pTeam === tId || pTeam.includes(tName);
+      });
+
+      // If matches found, replace static players.
+      if (teamPlayers.length > 0) {
+        return { ...team, players: teamPlayers }; // Override static
+      }
+      return team;
+    });
+    setTeams(updatedTeams);
+  };
 
   const handleSelectTeam = (team: Team) => {
     setSelectedTeam(team);
@@ -82,6 +88,8 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-black min-h-screen text-white font-sans selection:bg-volt selection:text-black">
+      {!isAuthenticated && <LoginScreen onLogin={handleLogin} />}
+
       <GrainOverlay />
 
       <Header currentView={view} onHomeClick={handleHomeClick} />

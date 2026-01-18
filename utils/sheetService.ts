@@ -3,95 +3,88 @@ import { Player, Stats } from '../types';
 
 // Default / Example Sheet URL (User to replace)
 // This should be the "Published to Web" -> "CSV" link
-export const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRtcteQ713KHARlTHp2mxT96M_3xqkRGyIBa_UmXmGJVsmIKfOp_Kz9VIjH0BeLLU52n72DDVVOfi5c/pub?output=csv";
+// Removed public SHEET_URL export for security
+// The URL is now stored in Netlify Environment Variables
 
-interface SheetRow {
-    ID: string;
-    Name: string;
-    Showcase_Team: string;
-    Team: string;
-    Number: string;
-    Position: string;
-    Height: string;
-    Foot: string;
-    Bio: string;
-    Image_URL: string;
-    Origin: string;
-    CurrentTeam: string;
-    GPA: string;
-    Eligibility: string;
-
-    // Stats
-    Speed_40yd: string;
-    Broad_Jump: string;
-    CMJ_Vert: string;
-}
-
-export const fetchPlayerData = async (csvUrl: string): Promise<Player[]> => {
+export const fetchPlayerData = async (password: string): Promise<Player[]> => {
     return new Promise((resolve, reject) => {
-        // Append unique timestamp to bypass browser caching
-        const cacheBustedUrl = `${csvUrl}&t=${Date.now()}`;
-        Papa.parse(cacheBustedUrl, {
-            download: true,
-            header: true,
-            skipEmptyLines: true,
-            complete: (results) => {
-                const rawRows = results.data as any[];
+        // Fetch from our own backend proxy
+        fetch('/.netlify/functions/get-data', {
+            method: 'POST',
+            body: JSON.stringify({ password }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(async (response) => {
+                if (!response.ok) {
+                    throw new Error("Unauthorized or Failed");
+                }
+                return response.text(); // Get CSV text
+            })
+            .then((csvData) => {
+                Papa.parse(csvData, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: (results) => {
+                        const rawRows = results.data as any[];
 
-                const players: Player[] = rawRows.map((rawRow, index) => {
-                    // Helper to clean strings
-                    const clean = (val: string) => val ? val.trim() : "";
+                        const players: Player[] = rawRows.map((rawRow, index) => {
+                            // Helper to clean strings
+                            const clean = (val: string) => val ? val.trim() : "";
 
-                    // Normalize keys: Remove spaces from column names (e.g. "Bio " -> "Bio")
-                    const row: any = {};
-                    Object.keys(rawRow).forEach(key => {
-                        const cleanKey = key.trim();
-                        row[cleanKey] = rawRow[key];
-                    });
+                            // Normalize keys: Remove spaces from column names (e.g. "Bio " -> "Bio")
+                            const row: any = {};
+                            Object.keys(rawRow).forEach(key => {
+                                const cleanKey = key.trim();
+                                row[cleanKey] = rawRow[key];
+                            });
 
-                    // Parse Stats
-                    const stats: Stats[] = [
-                        {
-                            label: "40 Yard Dash",
-                            value: calculateStatScore(parseFloat(row.Speed_40yd), 4.2, 5.2, true),
-                            displayValue: clean(row.Speed_40yd) || "-"
-                        },
-                        {
-                            label: "Broad Jump",
-                            value: calculateStatScore(parseFloat(row.Broad_Jump), 200, 300, false),
-                            displayValue: clean(row.Broad_Jump) || "-"
-                        },
-                        {
-                            label: "CMJ (Vert)",
-                            value: calculateStatScore(parseFloat(row.CMJ_Vert), 30, 80, false),
-                            displayValue: clean(row.CMJ_Vert) || "-"
-                        }
-                    ];
+                            // Parse Stats
+                            const stats: Stats[] = [
+                                {
+                                    label: "40 Yard Dash",
+                                    value: calculateStatScore(parseFloat(row.Speed_40yd), 4.2, 5.2, true),
+                                    displayValue: clean(row.Speed_40yd) || "-"
+                                },
+                                {
+                                    label: "Broad Jump",
+                                    value: calculateStatScore(parseFloat(row.Broad_Jump), 200, 300, false),
+                                    displayValue: clean(row.Broad_Jump) || "-"
+                                },
+                                {
+                                    label: "CMJ (Vert)",
+                                    value: calculateStatScore(parseFloat(row.CMJ_Vert), 30, 80, false),
+                                    displayValue: clean(row.CMJ_Vert) || "-"
+                                }
+                            ];
 
-                    return {
-                        id: clean(row.ID) || `gen-${index}`,
-                        name: clean(row.Name) || "Unknown Player",
-                        number: clean(row.Number) || "0",
-                        position: clean(row.Position) || "ATH",
-                        bio: clean(row.Bio) || "No bio available.",
-                        image: transformImage(clean(row.Image_URL)),
-                        origin: clean(row.Origin),
-                        currentTeam: clean(row.CurrentTeam),
-                        showcaseTeam: clean(row.Showcase_Team) || clean(row.Team), // Map from CSV
-                        height: clean(row.Height),
-                        foot: (clean(row.Foot) as "Right" | "Left" | "Both") || "Right",
-                        gpa: clean(row.GPA),
-                        eligibility: clean(row.Eligibility),
-                        stats: stats
-                    };
+                            return {
+                                id: clean(row.ID) || `gen-${index}`,
+                                name: clean(row.Name) || "Unknown Player",
+                                number: clean(row.Number) || "0",
+                                position: clean(row.Position) || "ATH",
+                                bio: clean(row.Bio) || "No bio available.",
+                                image: transformImage(clean(row.Image_URL)),
+                                origin: clean(row.Origin),
+                                currentTeam: clean(row.CurrentTeam),
+                                showcaseTeam: clean(row.Showcase_Team) || clean(row.Team), // Map from CSV
+                                height: clean(row.Height),
+                                foot: (clean(row.Foot) as "Right" | "Left" | "Both") || "Right",
+                                gpa: clean(row.GPA),
+                                eligibility: clean(row.Eligibility),
+                                stats: stats
+                            };
+                        });
+
+                        resolve(players);
+                    },
+                    error: (error) => {
+                        reject(error);
+                    }
                 });
-
-                resolve(players);
-            },
-            error: (error) => {
+            })
+            .catch((error) => {
                 reject(error);
-            }
-        });
+            });
     });
 };
 
