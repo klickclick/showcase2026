@@ -47,12 +47,6 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         }}
                         className="w-full h-full object-cover object-top md:object-center"
                     />
-
-                    {/* DEBUG OVERLAY */}
-                    <div className="absolute top-20 left-4 z-50 bg-black/80 text-volt text-xs p-2 max-w-md break-all border border-volt">
-                        DEBUG URL: {player.image}
-                    </div>
-
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 md:opacity-80"></div>
                 </motion.div>
 

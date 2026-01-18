@@ -114,7 +114,8 @@ const transformImage = (url: string): string => {
     if (url.includes("drive.google.com") || url.includes("docs.google.com")) {
         const idMatch = url.match(/\/d\/(.*?)(?:\/|$)/);
         if (idMatch && idMatch[1]) {
-            return `https://drive.google.com/uc?export=view&id=${idMatch[1]}`;
+            // Use lh3.googleusercontent.com for better embedding reliability
+            return `https://lh3.googleusercontent.com/d/${idMatch[1]}`;
         }
     }
 
