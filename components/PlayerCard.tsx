@@ -22,7 +22,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
             <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="fixed top-4 left-4 z-50 md:hidden bg-black/50 backdrop-blur-md p-2 rounded-full border border-white/10 text-white active:scale-90 transition-all"
+                className="fixed top-24 left-4 z-50 md:hidden bg-black/50 backdrop-blur-md p-2 rounded-full border border-white/10 text-white active:scale-90 transition-all"
                 onClick={onBack}
             >
                 <ArrowLeft className="w-6 h-6" />
