@@ -36,11 +36,18 @@ export const fetchPlayerData = async (csvUrl: string): Promise<Player[]> => {
             header: true,
             skipEmptyLines: true,
             complete: (results) => {
-                const rows = results.data as SheetRow[];
+                const rawRows = results.data as any[];
 
-                const players: Player[] = rows.map((row, index) => {
+                const players: Player[] = rawRows.map((rawRow, index) => {
                     // Helper to clean strings
                     const clean = (val: string) => val ? val.trim() : "";
+
+                    // Normalize keys: Remove spaces from column names (e.g. "Bio " -> "Bio")
+                    const row: any = {};
+                    Object.keys(rawRow).forEach(key => {
+                        const cleanKey = key.trim();
+                        row[cleanKey] = rawRow[key];
+                    });
 
                     // Parse Stats
                     const stats: Stats[] = [
