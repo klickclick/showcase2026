@@ -67,7 +67,7 @@ export const fetchPlayerData = async (csvUrl: string): Promise<Player[]> => {
                         number: clean(row.Number) || "0",
                         position: clean(row.Position) || "ATH",
                         bio: clean(row.Bio) || "No bio available.",
-                        image: clean(row.Image_URL) || "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=1934&auto=format&fit=crop", // Fallback
+                        image: transformImage(clean(row.Image_URL)),
                         origin: clean(row.Origin),
                         currentTeam: clean(row.CurrentTeam),
                         showcaseTeam: clean(row.Showcase_Team) || clean(row.Team), // Map from CSV
@@ -102,4 +102,26 @@ const calculateStatScore = (val: number, min: number, max: number, lowBest: bool
         score = ((val - min) / (max - min)) * 100;
     }
     return Math.max(0, Math.min(100, Math.round(score)));
+};
+
+// Helper: Transform various image URL formats to be embeddable
+const transformImage = (url: string): string => {
+    if (!url) return "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=1934&auto=format&fit=crop"; // Fallback
+
+    // Handle Google Drive Links
+    // Input: https://drive.google.com/file/d/123456789/view?usp=sharing
+    // Output: https://drive.google.com/uc?export=view&id=123456789
+    if (url.includes("drive.google.com") || url.includes("docs.google.com")) {
+        const idMatch = url.match(/\/d\/(.*?)(?:\/|$)/);
+        if (idMatch && idMatch[1]) {
+            return `https://drive.google.com/uc?export=view&id=${idMatch[1]}`;
+        }
+    }
+
+    // Handle Dropbox Links (dl=0 -> raw=1)
+    if (url.includes("dropbox.com") && url.includes("dl=0")) {
+        return url.replace("dl=0", "raw=1");
+    }
+
+    return url;
 };
