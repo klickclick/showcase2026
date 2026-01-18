@@ -39,11 +39,20 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                     <img
                         src={player.image}
                         alt={player.name}
+                        referrerPolicy="no-referrer"
                         onError={(e) => {
-                            e.currentTarget.src = "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=1934&auto=format&fit=crop";
+                            console.log("Image failed to load:", player.image);
+                            e.currentTarget.style.display = 'none'; // Hide broken image to show what's behind or fallback handled differently
+                            e.currentTarget.parentElement?.classList.add('bg-gray-800'); // Fallback background
                         }}
                         className="w-full h-full object-cover object-top md:object-center"
                     />
+
+                    {/* DEBUG OVERLAY */}
+                    <div className="absolute top-20 left-4 z-50 bg-black/80 text-volt text-xs p-2 max-w-md break-all border border-volt">
+                        DEBUG URL: {player.image}
+                    </div>
+
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 md:opacity-80"></div>
                 </motion.div>
 
