@@ -29,7 +29,9 @@ interface SheetRow {
 
 export const fetchPlayerData = async (csvUrl: string): Promise<Player[]> => {
     return new Promise((resolve, reject) => {
-        Papa.parse(csvUrl, {
+        // Append unique timestamp to bypass browser caching
+        const cacheBustedUrl = `${csvUrl}&t=${Date.now()}`;
+        Papa.parse(cacheBustedUrl, {
             download: true,
             header: true,
             skipEmptyLines: true,
