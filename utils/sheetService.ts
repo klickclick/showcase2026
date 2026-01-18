@@ -43,17 +43,17 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                                 {
                                     label: "40 Yard Dash",
                                     value: calculateStatScore(parseFloat(row.Speed_40yd), 4.2, 5.2, true),
-                                    displayValue: clean(row.Speed_40yd) || "-"
+                                    displayValue: clean(row.Speed_40yd) ? `${clean(row.Speed_40yd)}s` : "-"
                                 },
                                 {
                                     label: "Broad Jump",
                                     value: calculateStatScore(parseFloat(row.Broad_Jump), 200, 300, false),
-                                    displayValue: clean(row.Broad_Jump) || "-"
+                                    displayValue: clean(row.Broad_Jump) ? `${clean(row.Broad_Jump)}cm` : "-"
                                 },
                                 {
                                     label: "CMJ (Vert)",
                                     value: calculateStatScore(parseFloat(row.CMJ_Vert), 30, 80, false),
-                                    displayValue: clean(row.CMJ_Vert) || "-"
+                                    displayValue: clean(row.CMJ_Vert) ? `${clean(row.CMJ_Vert)}cm` : "-"
                                 }
                             ];
 
