@@ -23,18 +23,21 @@ const App: React.FC = () => {
         // If we have fetched players, distribute them into teams
         if (fetchedPlayers.length > 0) {
           const updatedTeams = TEAMS.map(team => {
-            // Find players whose "CurrentTeam" or "Team" matches the Team Name or ID
-            // Assumption: The Sheet has a "Team" column matching "Team 1", "Team 2" etc.
-            const teamPlayers = fetchedPlayers.filter(p =>
-              p.showcaseTeam === team.name ||
-              p.showcaseTeam === team.id ||
-              (p.showcaseTeam && p.showcaseTeam.includes(team.name)) // loose match
-            );
+            // Helper for loose matching (ignore spaces and case)
+            const normalize = (str: string) => str ? str.toLowerCase().replace(/\s/g, '') : '';
 
-            // If matches found, replace static players. Else keep static players (or empty?)
-            // Defaulting to OVERRIDE if matches found.
+            // Find players whose "CurrentTeam" or "Team" matches the Team Name or ID
+            const teamPlayers = fetchedPlayers.filter(p => {
+              const pTeam = normalize(p.showcaseTeam);
+              const tName = normalize(team.name); // "team1"
+              const tId = normalize(team.id);     // "t1"
+
+              return pTeam === tName || pTeam === tId || pTeam.includes(tName);
+            });
+
+            // If matches found, replace static players.
             if (teamPlayers.length > 0) {
-              return { ...team, players: teamPlayers };
+              return { ...team, players: teamPlayers }; // Override static
             }
             return team;
           });
