@@ -9,13 +9,13 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'circOut' }}
       className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 pointer-events-none"
     >
-      <div 
+      <div
         onClick={onHomeClick}
         className={`pointer-events-auto cursor-pointer flex flex-col items-start group ${currentView !== ViewState.TEAMS ? 'opacity-100' : 'opacity-100'}`}
       >
@@ -26,11 +26,12 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
             2. Ändere unten src="..." zu src="/logo.png".
         */}
         <div className="relative">
-             <img 
-                src="/logo.png" 
-                alt="Athletes USA" 
-                className="h-10 md:h-14 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] transition-transform duration-300 group-hover:scale-105"
-             />
+          <img
+            src="/logo.png"
+            alt="Athletes USA"
+            style={{ filter: 'brightness(0) invert(1)' }}
+            className="h-10 md:h-14 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] transition-transform duration-300 group-hover:scale-105"
+          />
         </div>
       </div>
 
@@ -38,6 +39,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
         <span>Showcase 2026</span>
         <span className="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
         <span className="text-white">Live</span>
+        <span className="text-xs text-red-500 border border-red-500 px-1">DEBUG: WHITE LOGO ACTIVE</span>
       </div>
     </motion.header>
   );
