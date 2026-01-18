@@ -29,7 +29,6 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
           <img
             src="/logo.png"
             alt="Athletes USA"
-            style={{ filter: 'brightness(0) invert(1)' }}
             className="h-10 md:h-14 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] transition-transform duration-300 group-hover:scale-105"
           />
         </div>
@@ -39,7 +38,6 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
         <span>Showcase 2026</span>
         <span className="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
         <span className="text-white">Live</span>
-        <span className="text-xs text-red-500 border border-red-500 px-1">DEBUG: WHITE LOGO ACTIVE</span>
       </div>
     </motion.header>
   );
