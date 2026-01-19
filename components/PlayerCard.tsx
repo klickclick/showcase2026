@@ -29,7 +29,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
             </motion.button>
 
             {/* Left Side - Image (Reduced height on mobile) */}
-            <div className="w-full h-[40vh] md:w-1/2 md:h-screen relative flex-shrink-0">
+            <div className="w-full h-[55vh] md:w-1/2 md:h-screen relative flex-shrink-0">
                 <motion.div
                     initial={{ scale: 1.1, filter: 'grayscale(100%)' }}
                     animate={{ scale: 1, filter: 'grayscale(0%)' }}
@@ -45,7 +45,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                             e.currentTarget.style.display = 'none'; // Hide broken image to show what's behind or fallback handled differently
                             e.currentTarget.parentElement?.classList.add('bg-gray-800'); // Fallback background
                         }}
-                        className="w-full h-full object-cover object-top md:object-center"
+                        className="w-full h-full object-cover object-center md:object-center"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 md:opacity-80"></div>
                 </motion.div>
