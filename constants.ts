@@ -142,42 +142,42 @@ const generateSquad = (teamId: string): Player[] => {
 export const TEAMS: Team[] = [
   {
     id: 't1',
-    name: 'Team 1',
+    name: 'Team 1 (White)',
     slogan: 'Total Football. Total Domination.',
     image: TEAM_IMGS[0],
     players: generateSquad('t1')
   },
   {
     id: 't2',
-    name: 'Team 2',
+    name: 'Team 2 (Red)',
     slogan: 'Defense Wins Championships.',
     image: TEAM_IMGS[1],
     players: generateSquad('t2')
   },
   {
     id: 't3',
-    name: 'Team 3',
+    name: 'Team 3 (Blue)',
     slogan: 'Precision in Every Pass.',
     image: TEAM_IMGS[2],
     players: generateSquad('t3')
   },
   {
     id: 't4',
-    name: 'Team 4',
+    name: 'Team 4 (Yellow)',
     slogan: 'Speed Kills.',
     image: TEAM_IMGS[3],
     players: generateSquad('t4')
   },
   {
     id: 't5',
-    name: 'Team 5',
+    name: 'Team 5 (Black)',
     slogan: 'Relentless Pressure.',
     image: TEAM_IMGS[4],
     players: generateSquad('t5')
   },
   {
     id: 't6',
-    name: 'Team 6',
+    name: 'Team 6 (Green)',
     slogan: 'The Beautiful Game.',
     image: TEAM_IMGS[5],
     players: generateSquad('t6')
