@@ -14,11 +14,11 @@ const TEAM_IMGS = [
 
 // Placeholder Player Images
 const PLAYER_PLACEHOLDERS = [
-  "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=1934&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=1929&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1628891435256-3f71ab48c02c?q=80&w=2070&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=1974&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1543351611-58f69d7c1781?q=80&w=1887&auto=format&fit=crop"  
+  "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=1934&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=1929&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1628891435256-3f71ab48c02c?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=1974&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1543351611-58f69d7c1781?q=80&w=1887&auto=format&fit=crop"
 ];
 
 const CITIES = ["Berlin, GER", "Munich, GER", "London, UK", "Paris, FRA", "Madrid, ESP", "Hamburg, GER", "Cologne, GER", "Manchester, UK"];
@@ -75,8 +75,8 @@ const generateCombineStats = (positionString: string): Stats[] => {
   if (category === "FWD" || positionString.includes("WB")) speedRaw = parseFloat(randFloat(4.35, 4.65)); // Fast wingers/strikers
   else if (category === "MID" || category === "DEF") speedRaw = parseFloat(randFloat(4.55, 4.90));
   else speedRaw = parseFloat(randFloat(4.80, 5.20)); // GK/Slow CB
-  
-  const speedScore = Math.max(40, Math.min(100, 100 - ((speedRaw - 4.2) * 60))); 
+
+  const speedScore = Math.max(40, Math.min(100, 100 - ((speedRaw - 4.2) * 60)));
 
   // 2. Broad Jump (Higher is better)
   // Range: 220cm to 300cm
@@ -99,30 +99,30 @@ const generateCombineStats = (positionString: string): Stats[] => {
 
 const generateSquad = (teamId: string): Player[] => {
   const squad: Player[] = [];
-  
+
   for (let i = 1; i <= 15; i++) {
     const position = getSpecificPositionByIndex(i - 1);
     const imageIndex = (i + parseInt(teamId.replace('t', ''))) % PLAYER_PLACEHOLDERS.length;
-    
+
     // Random Vitals
     const height = Math.floor(Math.random() * (198 - 172 + 1) + 172);
     const gpa = (Math.random() * (4.0 - 2.8) + 2.8).toFixed(1);
     const year = Math.floor(Math.random() * (2028 - 2024 + 1) + 2024);
-    
+
     // Determine Strong Foot based on position
     let foot: "Right" | "Left" | "Both" = "Right";
     if (position.includes("LB") || position.includes("LW")) foot = "Left";
     else if (position.includes("RW") || position.includes("RB")) foot = "Right";
     else foot = Math.random() > 0.8 ? "Both" : "Right";
-    
+
     squad.push({
       id: `${teamId}-p${i}`,
-      name: `Player ${i < 10 ? '0' + i : i}`, 
+      name: `Player ${i < 10 ? '0' + i : i}`,
       number: i === 1 ? '1' : `${Math.floor(Math.random() * 98) + 2}`,
       position: position,
       bio: "An elite prospect known for technical discipline and explosive athleticism. Consistently outperforms in high-stakes matches and demonstrates exceptional leadership qualities on the field.",
       image: PLAYER_PLACEHOLDERS[imageIndex],
-      
+
       // New Specific Fields
       origin: CITIES[Math.floor(Math.random() * CITIES.length)],
       currentTeam: ACADEMIES[Math.floor(Math.random() * ACADEMIES.length)],
@@ -177,7 +177,7 @@ export const TEAMS: Team[] = [
   },
   {
     id: 't6',
-    name: 'Team 6 (Green)',
+    name: 'ITP 1.FC Köln (Red/White)',
     slogan: 'The Beautiful Game.',
     image: TEAM_IMGS[5],
     players: generateSquad('t6')
