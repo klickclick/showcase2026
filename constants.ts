@@ -179,7 +179,7 @@ export const TEAMS: Team[] = [
     id: 't6',
     name: 'ITP 1.FC Köln (Red/White)',
     slogan: 'The Beautiful Game.',
-    image: TEAM_IMGS[5],
+    image: "/itp.png",
     players: generateSquad('t6')
   }
 ];
