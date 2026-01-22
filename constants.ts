@@ -143,42 +143,42 @@ export const TEAMS: Team[] = [
   {
     id: 't1',
     name: 'Team 1 (White)',
-    slogan: 'Total Football. Total Domination.',
+    slogan: 'Pick Team to see full Roster.',
     image: TEAM_IMGS[0],
     players: generateSquad('t1')
   },
   {
     id: 't2',
     name: 'Team 2 (Red)',
-    slogan: 'Defense Wins Championships.',
+    slogan: 'Pick Team to see full Roster.',
     image: TEAM_IMGS[1],
     players: generateSquad('t2')
   },
   {
     id: 't3',
     name: 'Team 3 (Blue)',
-    slogan: 'Precision in Every Pass.',
+    slogan: 'Pick Team to see full Roster.',
     image: TEAM_IMGS[2],
     players: generateSquad('t3')
   },
   {
     id: 't4',
     name: 'Team 4 (Yellow)',
-    slogan: 'Speed Kills.',
+    slogan: 'Pick Team to see full Roster.',
     image: TEAM_IMGS[3],
     players: generateSquad('t4')
   },
   {
     id: 't5',
     name: 'Team 5 (Black)',
-    slogan: 'Relentless Pressure.',
+    slogan: 'Pick Team to see full Roster.',
     image: TEAM_IMGS[4],
     players: generateSquad('t5')
   },
   {
     id: 't6',
     name: 'ITP 1.FC Köln (Red/White)',
-    slogan: 'The Beautiful Game.',
+    slogan: 'Pick Team to see full Roster.',
     image: "/itp.png",
     players: generateSquad('t6')
   }

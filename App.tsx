@@ -157,7 +157,7 @@ const App: React.FC = () => {
       {/* Footer / Copyright */}
       <footer className="fixed bottom-4 left-0 w-full text-center pointer-events-none z-0 opacity-30">
         <p className="text-[10px] uppercase tracking-[0.3em] font-mono text-gray-500">
-          Designed for performance. Engineered to win.
+          From Players. For Players.
         </p>
       </footer>
     </div>
