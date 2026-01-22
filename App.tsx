@@ -244,8 +244,25 @@ const App: React.FC = () => {
     );
   };
 
+  // Anti-Copy Measures
+  useEffect(() => {
+    // Disable Right Click
+    const handleContextMenu = (e: MouseEvent) => e.preventDefault();
+
+    // Disable Image Dragging
+    const handleDragStart = (e: DragEvent) => e.preventDefault();
+
+    window.addEventListener('contextmenu', handleContextMenu);
+    window.addEventListener('dragstart', handleDragStart);
+
+    return () => {
+      window.removeEventListener('contextmenu', handleContextMenu);
+      window.removeEventListener('dragstart', handleDragStart);
+    };
+  }, []);
+
   return (
-    <div className="bg-black min-h-screen text-white font-sans selection:bg-volt selection:text-black">
+    <div className="bg-black min-h-screen text-white font-sans select-none">
       {!isAuthenticated && <LoginScreen onLogin={handleLogin} />}
 
       <GrainOverlay />
