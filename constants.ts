@@ -14,7 +14,7 @@ const TEAM_IMGS = [
 
 // Placeholder Player Images
 const PLAYER_PLACEHOLDERS = [
-  "/Gemini_Generated_Image_66ot5u66ot5u66ot.png"
+  "/Frame 3.png"
 ];
 
 const CITIES = ["Berlin, GER", "Munich, GER", "London, UK", "Paris, FRA", "Madrid, ESP", "Hamburg, GER", "Cologne, GER", "Manchester, UK"];

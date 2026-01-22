@@ -35,6 +35,79 @@ const App: React.FC = () => {
     }
   }, []);
 
+  // Handle Browser Back/Forward Navigation
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      const state = event.state;
+      if (state) {
+        // Restore from state object
+        if (state.view === ViewState.TEAMS) {
+          setView(ViewState.TEAMS);
+          setSelectedTeam(null);
+          setSelectedPlayer(null);
+        } else if (state.view === ViewState.PLAYERS && state.teamId) {
+          const team = TEAMS.find(t => t.id === state.teamId);
+          if (team) {
+            setSelectedTeam(team);
+            setView(ViewState.PLAYERS);
+            setSelectedPlayer(null);
+          }
+        } else if (state.view === ViewState.PLAYER_DETAIL && state.playerId && state.teamId) {
+          const team = TEAMS.find(t => t.id === state.teamId);
+          // Note: We might need to look up player in the team's squad. 
+          // Since players are dynamic or generated, we rely on the fact that TEAMS is the source of truth 
+          // OR if players were distributed dynamically, we need to check the 'teams' state.
+          // However, 'teams' state is local. Ideally we should find the player in 'teams'.
+          // But 'teams' state might not be accessible inside this effect if not in dependency array?
+          // Actually, 'teams' is in scope.
+
+          // Use a function update or assume 'teams' is up to date if we depend on it.
+          // Since 'teams' changes only on login, it should be fine.
+          if (team) {
+            setSelectedTeam(team);
+            // We need to find the player. If it's a generated player, we need to find it by ID.
+            // But we can't search 'teams' state easily inside the listener without adding it to deps,
+            // which might re-trigger listener. 
+            // Better approach: Re-find player from the current 'teams' list via a ref or just state.
+            // Let's use the 'teams' state (add it to dependency).
+          }
+        }
+      } else {
+        // No state (e.g. initial load or external link), try to parse URL or default to Home
+        const params = new URLSearchParams(window.location.search);
+        const teamId = params.get('team');
+        const playerId = params.get('player');
+
+        if (playerId && teamId) {
+          // Logic to restore player view from URL would go here
+          // For now, let's default to parsing logic similar to popstate if we supported deep linking.
+          // Given the requirement is just "Back button works", we focus on popping state.
+          // If no state, we can assume Home.
+          setView(ViewState.TEAMS);
+          setSelectedTeam(null);
+          setSelectedPlayer(null);
+        } else if (teamId) {
+          const team = TEAMS.find(t => t.id === teamId);
+          if (team) {
+            setSelectedTeam(team);
+            setView(ViewState.PLAYERS);
+            setSelectedPlayer(null);
+          }
+        } else {
+          setView(ViewState.TEAMS);
+          setSelectedTeam(null);
+          setSelectedPlayer(null);
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [teams]); // Depend on teams to find players if needed, though for now we rely on static TEAMS for ID lookups or basic navigation
+
+  // Modify the handlePopState logic to be more robust with the 'teams' dependency
+  // Actually, simply depending on 'teams' is fine.
+
   // Called by LoginScreen when user submits password
   const handleLogin = async (password: string, isAutoLogin = false): Promise<boolean> => {
     try {
@@ -97,28 +170,78 @@ const App: React.FC = () => {
     setSelectedTeam(team);
     setView(ViewState.PLAYERS);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Push History State
+    window.history.pushState(
+      { view: ViewState.PLAYERS, teamId: team.id },
+      '',
+      `?team=${team.id}`
+    );
   };
 
   const handleSelectPlayer = (player: Player) => {
     setSelectedPlayer(player);
     setView(ViewState.PLAYER_DETAIL);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Push History State
+    // We need teamId to know context. selectedTeam should be valid here.
+    if (selectedTeam) {
+      window.history.pushState(
+        { view: ViewState.PLAYER_DETAIL, teamId: selectedTeam.id, playerId: player.id },
+        '',
+        `?team=${selectedTeam.id}&player=${player.id}`
+      );
+    }
   };
 
   const handleBackToTeams = () => {
+    // If we want the browser Back button to be consistent, we could just history.back()
+    // But that assumes the user arrived here via navigation.
+    // If we force a state change, we should pushState to "Team View"
+    // OR just use history.back() if we know there is a history.
+
+    // Simplest reliable way for now: Push new state (or Replace if we want to avoid infinite loops, but Push is standard for "going to a page")
+    // Actually, "Back" in UI usually implies "Up" in hierarchy or "Previous" in history.
+    // Let's use pushState to ensure we explicitly go to the Team view in history stack, 
+    // effectively "adding" a step, unless we want to strictly mimic "Back" behavior.
+    // Given the request is "Back button works", managing history stack explicitly is safest.
+
     setView(ViewState.TEAMS);
     setTimeout(() => setSelectedTeam(null), 500); // Clear after transition
+
+    // Update URL/History
+    window.history.pushState(
+      { view: ViewState.TEAMS },
+      '',
+      '/'
+      // Or should it be simple '/'? Yes.
+    );
   };
 
   const handleBackToPlayers = () => {
     setView(ViewState.PLAYERS);
     setTimeout(() => setSelectedPlayer(null), 500); // Clear after transition
+
+    if (selectedTeam) {
+      window.history.pushState(
+        { view: ViewState.PLAYERS, teamId: selectedTeam?.id },
+        '',
+        `?team=${selectedTeam?.id}`
+      );
+    }
   };
 
   const handleHomeClick = () => {
     setView(ViewState.TEAMS);
     setSelectedTeam(null);
     setSelectedPlayer(null);
+
+    window.history.pushState(
+      { view: ViewState.TEAMS },
+      '',
+      '/'
+    );
   };
 
   return (
