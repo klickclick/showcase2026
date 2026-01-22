@@ -49,7 +49,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                             {team.name}
                         </h2>
                         <p className="text-sm md:text-xl text-gray-400 mt-2 font-light truncate">
-                            {team.slogan}
+                            Pick player to see details.
                         </p>
                     </motion.div>
                 </div>
