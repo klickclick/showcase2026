@@ -14,11 +14,7 @@ const TEAM_IMGS = [
 
 // Placeholder Player Images
 const PLAYER_PLACEHOLDERS = [
-  "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=1934&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=1929&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1628891435256-3f71ab48c02c?q=80&w=2070&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=1974&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1543351611-58f69d7c1781?q=80&w=1887&auto=format&fit=crop"
+  "/Gemini_Generated_Image_66ot5u66ot5u66ot.png"
 ];
 
 const CITIES = ["Berlin, GER", "Munich, GER", "London, UK", "Paris, FRA", "Madrid, ESP", "Hamburg, GER", "Cologne, GER", "Manchester, UK"];

@@ -106,7 +106,7 @@ const calculateStatScore = (val: number, min: number, max: number, lowBest: bool
 
 // Helper: Transform various image URL formats to be embeddable
 const transformImage = (url: string): string => {
-    if (!url) return "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=1934&auto=format&fit=crop"; // Fallback
+    if (!url) return "/Gemini_Generated_Image_66ot5u66ot5u66ot.png"; // Fallback
 
     // Handle Google Drive Links
     // Input: https://drive.google.com/file/d/123456789/view?usp=sharing
