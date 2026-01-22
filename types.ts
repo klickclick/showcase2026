@@ -19,6 +19,7 @@ export interface Player {
   foot: "Right" | "Left" | "Both";
   gpa: string;
   eligibility: string;
+  dob: string;
 
   image: string;
   stats: Stats[];

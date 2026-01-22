@@ -126,6 +126,7 @@ const generateSquad = (teamId: string): Player[] => {
       foot: foot,
       gpa: gpa,
       eligibility: `Fall ${year}`,
+      dob: `11/07/${year - 18}`, // Approximate age 18
 
       stats: generateCombineStats(position)
     });

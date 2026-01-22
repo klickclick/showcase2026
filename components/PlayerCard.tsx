@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Player } from '../types';
-import { ArrowLeft, MapPin, Shield, Activity, GraduationCap } from 'lucide-react';
+import { ArrowLeft, MapPin, Shield, Activity, GraduationCap, Calendar } from 'lucide-react';
 
 interface PlayerCardProps {
     player: Player;
@@ -91,7 +91,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                     </motion.h1>
 
                     {/* Compact Bio Details */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 bg-surface/30 p-4 rounded-lg border border-white/5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-surface/30 p-4 rounded-lg border border-white/5">
                         <div className="flex items-center space-x-3 text-sm">
                             <MapPin className="w-4 h-4 text-volt flex-shrink-0" />
                             <span className="text-gray-400 uppercase tracking-wider text-[10px] md:text-xs">From:</span>
@@ -102,18 +102,25 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                             <span className="text-gray-400 uppercase tracking-wider text-[10px] md:text-xs">Club:</span>
                             <span className="text-white font-bold truncate">{player.currentTeam}</span>
                         </div>
+                        <div className="flex items-center space-x-3 text-sm">
+                            <Calendar className="w-4 h-4 text-volt flex-shrink-0" />
+                            <span className="text-gray-400 uppercase tracking-wider text-[10px] md:text-xs">Born:</span>
+                            <span className="text-white font-bold truncate">{player.dob}</span>
+                        </div>
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                        className="prose prose-invert prose-sm md:prose-lg mb-8"
-                    >
-                        <p className="text-gray-300 font-light leading-relaxed">
-                            {player.bio}
-                        </p>
-                    </motion.div>
+                    {player.bio && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4 }}
+                            className="prose prose-invert prose-sm md:prose-lg mb-8"
+                        >
+                            <p className="text-gray-300 font-light leading-relaxed">
+                                {player.bio}
+                            </p>
+                        </motion.div>
+                    )}
 
                     {/* Vitals Grid */}
                     <motion.div

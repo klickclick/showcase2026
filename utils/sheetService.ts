@@ -62,7 +62,7 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                                 name: clean(row.Name) || "Unknown Player",
                                 number: clean(row.Number) || "0",
                                 position: clean(row.Position) || "ATH",
-                                bio: clean(row.Bio) || "No bio available.",
+                                bio: clean(row.Bio) || "",
                                 image: transformImage(clean(row.Image_URL)),
                                 origin: clean(row.Origin),
                                 currentTeam: clean(row.CurrentTeam),
@@ -71,6 +71,7 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                                 foot: (clean(row.Foot) as "Right" | "Left" | "Both") || "Right",
                                 gpa: clean(row.GPA),
                                 eligibility: clean(row.Eligibility),
+                                dob: clean(row.DOB) || clean(row.Date_of_Birth) || clean(row.Birthday) || "",
                                 stats: stats
                             };
                         });
