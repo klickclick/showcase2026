@@ -14,7 +14,7 @@ const TEAM_IMGS = [
 
 // Placeholder Player Images
 const PLAYER_PLACEHOLDERS = [
-  "/Frame 3.png"
+  "/generic avatar.png"
 ];
 
 const CITIES = ["Berlin, GER", "Munich, GER", "London, UK", "Paris, FRA", "Madrid, ESP", "Hamburg, GER", "Cologne, GER", "Manchester, UK"];
