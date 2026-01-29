@@ -75,7 +75,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         className="flex flex-wrap items-center gap-3 mb-2 md:mb-4"
                     >
                         <span className="text-volt font-display font-bold text-5xl md:text-8xl">#{player.number}</span>
-                        <span className="text-white/80 font-mono font-bold uppercase tracking-widest text-xs md:text-sm border border-white/20 px-3 py-1 rounded bg-surface/50 backdrop-blur-sm">
+                        <span className="text-white/80 font-sans font-bold uppercase tracking-widest text-xs md:text-sm border border-white/20 px-3 py-1 rounded bg-surface/50 backdrop-blur-sm">
                             {player.position}
                         </span>
                     </motion.div>
@@ -164,7 +164,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 }}
-                        className="text-volt font-mono uppercase text-xs tracking-[0.2em] mb-4 border-b border-white/10 pb-2"
+                        className="text-volt font-sans font-bold uppercase text-xs tracking-[0.2em] mb-4 border-b border-white/10 pb-2"
                     >
                         Official Combine Results
                     </motion.h3>
@@ -182,7 +182,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                                     <span className="text-gray-400 uppercase text-[10px] md:text-xs font-bold tracking-widest group-hover:text-white transition-colors">
                                         {stat.label}
                                     </span>
-                                    <span className="text-white font-mono font-bold text-base md:text-lg text-shadow-glow">
+                                    <span className="text-white font-sans font-bold text-base md:text-lg text-shadow-glow">
                                         {stat.displayValue}
                                     </span>
                                 </div>

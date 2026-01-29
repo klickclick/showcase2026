@@ -94,7 +94,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                     </div>
 
                                     {/* Quick Stats Row for Mobile */}
-                                    <div className="flex items-center space-x-3 mt-2 text-[10px] text-gray-400 font-mono">
+                                    <div className="flex items-center space-x-3 mt-2 text-[10px] text-gray-400 font-sans font-bold">
                                         <span className="flex items-center"><span className="text-white mr-1">{player.height}</span></span>
                                         <span className="w-px h-3 bg-gray-700"></span>
                                         <span>{player.foot} Foot</span>

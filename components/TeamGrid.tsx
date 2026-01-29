@@ -79,7 +79,7 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
                 <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold uppercase italic leading-none text-white drop-shadow-lg">
                   {team.name}
                 </h2>
-                <p className="text-volt font-mono text-[10px] md:text-sm tracking-widest uppercase mt-1 md:mt-2 opacity-90">
+                <p className="text-volt font-sans font-bold text-[10px] md:text-sm tracking-widest uppercase mt-1 md:mt-2 opacity-90">
                   {team.slogan}
                 </p>
               </div>

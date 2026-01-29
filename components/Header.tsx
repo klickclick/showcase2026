@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
         </div>
       </div>
 
-      <div className="hidden md:flex items-center space-x-6 text-sm font-semibold tracking-widest uppercase text-gray-400">
+      <div className="hidden md:flex items-center space-x-6 text-sm font-display tracking-widest uppercase text-gray-400">
         <span>Showcase 2026</span>
         <span className="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
         <span className="text-white">Live</span>
