@@ -44,7 +44,7 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
       <motion.h1
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="text-4xl md:text-8xl font-display font-bold uppercase mb-8 md:mb-12 text-center md:text-left text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500"
+        className="text-4xl md:text-8xl font-display font-bold uppercase md:tracking-wide mb-8 md:mb-12 text-center md:text-left text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500"
       >
         Select Squad
       </motion.h1>
@@ -76,7 +76,7 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
             {/* Content - Optimized for quick scanning on mobile */}
             <div className="absolute inset-0 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-end p-6 md:p-8">
               <div className="flex flex-col z-10 w-full">
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold uppercase leading-none text-white drop-shadow-lg">
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold uppercase md:tracking-wide leading-none text-white drop-shadow-lg">
                   {team.name}
                 </h2>
                 <p className="text-volt font-sans font-bold text-[10px] md:text-sm tracking-widest uppercase mt-1 md:mt-2 opacity-90">
