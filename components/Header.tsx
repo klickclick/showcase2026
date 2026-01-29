@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
         */}
         <div className="relative">
           <img
-            src="/logo.png"
+            src="/Logo%201080%20x%20450%20(1).png"
             alt="Athletes USA"
             className="h-10 md:h-14 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] transition-transform duration-300 group-hover:scale-105"
           />
