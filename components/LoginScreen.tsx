@@ -53,7 +53,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
                         )}
                     </div>
 
-                    <h1 className="text-3xl font-display font-bold uppercase italic text-white mb-2">
+                    <h1 className="text-3xl font-display font-bold uppercase text-white mb-2">
                         Restricted Access
                     </h1>
                     <p className="text-gray-400 text-sm mb-8 px-4">

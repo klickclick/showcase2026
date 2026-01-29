@@ -85,7 +85,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="text-4xl md:text-7xl font-display font-bold uppercase italic leading-[0.9] mb-6 text-white"
+                        className="text-4xl md:text-7xl font-display font-bold uppercase leading-[0.9] mb-6 text-white"
                     >
                         {player.name}
                     </motion.h1>
