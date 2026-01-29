@@ -45,7 +45,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                         transition={{ delay: 0.3 }}
                         className="border-l-4 border-volt pl-4 md:pl-6"
                     >
-                        <h2 className="text-4xl md:text-8xl font-display font-bold uppercase italic tracking-tighter text-white leading-none">
+                        <h2 className="text-4xl md:text-8xl font-display font-bold uppercase italic tracking-wide text-white leading-none">
                             {team.name}
                         </h2>
                         <p className="text-sm md:text-xl text-gray-400 mt-2 font-light truncate">
