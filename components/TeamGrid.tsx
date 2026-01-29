@@ -44,7 +44,7 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
       <motion.h1
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="text-4xl md:text-8xl font-display font-bold uppercase tracking-wide mb-8 md:mb-12 text-center md:text-left text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500"
+        className="text-4xl md:text-8xl font-display font-bold uppercase mb-8 md:mb-12 text-center md:text-left text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500"
       >
         Select Squad
       </motion.h1>
