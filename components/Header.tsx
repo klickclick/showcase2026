@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'circOut' }}
-      className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 md:py-6 pointer-events-none"
     >
       <div
         onClick={onHomeClick}
@@ -34,9 +34,9 @@ const Header: React.FC<HeaderProps> = ({ currentView, onHomeClick }) => {
         </div>
       </div>
 
-      <div className="hidden md:flex items-center space-x-6 text-sm font-display uppercase text-gray-400">
+      <div className="hidden md:flex items-center space-x-6 text-xl font-display uppercase text-gray-400">
         <span>Showcase 2026</span>
-        <span className="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
+        <span className="w-3 h-3 rounded-full bg-volt animate-pulse"></span>
         <span className="text-white">Live</span>
       </div>
     </motion.header>

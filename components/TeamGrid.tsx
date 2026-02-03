@@ -68,7 +68,7 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
               <img
                 src={team.image}
                 alt={team.name}
-                className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 opacity-80 ${team.imageStyle || 'object-cover'}`}
+                className={`w-full h-full transition-all duration-700 ease-out group-hover:scale-110 ${team.imageStyle || 'object-cover'} opacity-100 grayscale-0 md:opacity-60 md:grayscale md:group-hover:grayscale-0 md:group-hover:opacity-80`}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent md:bg-gradient-to-t md:from-black md:via-transparent md:to-transparent opacity-90"></div>
             </div>
