@@ -105,7 +105,35 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         <div className="flex items-center space-x-3 text-sm">
                             <Calendar className="w-4 h-4 text-volt flex-shrink-0" />
                             <span className="text-gray-400 uppercase tracking-wider text-[10px] md:text-xs">Born:</span>
-                            <span className="text-white font-bold truncate">{player.dob}</span>
+                            <span className="text-white font-bold truncate">
+                                {player.dob} {(() => {
+                                    if (!player.dob) return '';
+                                    try {
+                                        // Handle "DD.MM.YYYY" or "YYYY-MM-DD"
+                                        const now = new Date();
+                                        let birthDate: Date;
+
+                                        if (player.dob.includes('.')) {
+                                            const parts = player.dob.split('.');
+                                            // Assume DD.MM.YYYY
+                                            birthDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+                                        } else {
+                                            birthDate = new Date(player.dob);
+                                        }
+
+                                        if (isNaN(birthDate.getTime())) return '';
+
+                                        let age = now.getFullYear() - birthDate.getFullYear();
+                                        const m = now.getMonth() - birthDate.getMonth();
+                                        if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+                                            age--;
+                                        }
+                                        return <span className="text-gray-500 font-normal ml-1">({age})</span>;
+                                    } catch (e) {
+                                        return '';
+                                    }
+                                })()}
+                            </span>
                         </div>
                     </div>
 

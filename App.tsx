@@ -236,6 +236,7 @@ const App: React.FC = () => {
     setView(ViewState.TEAMS);
     setSelectedTeam(null);
     setSelectedPlayer(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     window.history.pushState(
       { view: ViewState.TEAMS },
