@@ -27,6 +27,35 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                     complete: (results) => {
                         const rawRows = results.data as any[];
 
+                        // PASS 1: Calculate Min/Max for Dynamic Scaling
+                        let minSpeed = 100, maxSpeed = 0;
+                        let minBroad = 500, maxBroad = 0;
+                        let minCMJ = 100, maxCMJ = 0;
+
+                        rawRows.forEach(row => {
+                            const speed = parseFloat(row.Speed_40yd);
+                            const broad = parseFloat(row.Broad_Jump);
+                            const cmj = parseFloat(row.CMJ_Vert);
+
+                            if (!isNaN(speed) && speed > 0) {
+                                if (speed < minSpeed) minSpeed = speed; // Lower is better (Best)
+                                if (speed > maxSpeed) maxSpeed = speed; // Higher is worse (Worst)
+                            }
+                            if (!isNaN(broad) && broad > 0) {
+                                if (broad < minBroad) minBroad = broad; // Lower is worse (Worst)
+                                if (broad > maxBroad) maxBroad = broad; // Higher is better (Best)
+                            }
+                            if (!isNaN(cmj) && cmj > 0) {
+                                if (cmj < minCMJ) minCMJ = cmj; // Lower is worse (Worst)
+                                if (cmj > maxCMJ) maxCMJ = cmj; // Higher is better (Best)
+                            }
+                        });
+
+                        // Fallback defaults if data is missing or single entry to avoid /0
+                        if (maxSpeed === minSpeed) { maxSpeed = minSpeed + 1; }
+                        if (maxBroad === minBroad) { minBroad = 0; }
+                        if (maxCMJ === minCMJ) { minCMJ = 0; }
+
                         const players: Player[] = rawRows.map((rawRow, index) => {
                             // Helper to clean strings
                             const clean = (val: string) => val ? val.trim() : "";
@@ -38,21 +67,33 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                                 row[cleanKey] = rawRow[key];
                             });
 
-                            // Parse Stats
+                            // Parse Stats with Dynamic Scaling
+                            // Speed: Low is Best. Range [Max, Min] -> [0, 100]
+                            const speedVal = parseFloat(row.Speed_40yd);
+                            const speedScore = isNaN(speedVal) ? 0 : calculateStatScore(speedVal, minSpeed, maxSpeed, true);
+
+                            // Broad: High is Best. Range [Min, Max] -> [0, 100]
+                            const broadVal = parseFloat(row.Broad_Jump);
+                            const broadScore = isNaN(broadVal) ? 0 : calculateStatScore(broadVal, minBroad, maxBroad, false);
+
+                            // CMJ: High is Best. Range [Min, Max] -> [0, 100]
+                            const cmjVal = parseFloat(row.CMJ_Vert);
+                            const cmjScore = isNaN(cmjVal) ? 0 : calculateStatScore(cmjVal, minCMJ, maxCMJ, false);
+
                             const stats: Stats[] = [
                                 {
                                     label: "40 Yard Dash",
-                                    value: calculateStatScore(parseFloat(row.Speed_40yd), 4.2, 5.2, true),
+                                    value: speedScore,
                                     displayValue: clean(row.Speed_40yd) ? `${clean(row.Speed_40yd)}s` : "-"
                                 },
                                 {
                                     label: "Broad Jump",
-                                    value: calculateStatScore(parseFloat(row.Broad_Jump), 200, 300, false),
+                                    value: broadScore,
                                     displayValue: clean(row.Broad_Jump) ? `${clean(row.Broad_Jump)}cm` : "-"
                                 },
                                 {
                                     label: "CMJ (Vert)",
-                                    value: calculateStatScore(parseFloat(row.CMJ_Vert), 30, 80, false),
+                                    value: cmjScore,
                                     displayValue: clean(row.CMJ_Vert) ? `${clean(row.CMJ_Vert)}cm` : "-"
                                 }
                             ];
@@ -91,16 +132,25 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
 
 // Helper: 0-100 Score
 // lowBest: true if lower number is better (like sprint time)
-const calculateStatScore = (val: number, min: number, max: number, lowBest: boolean): number => {
-    if (isNaN(val)) return 50;
+// For lowBest (Speed): min=Best(4.4), max=Worst(5.5). Val=4.4 -> 100%. Val=5.5 -> 0%.
+// Formula: (Max - Val) / (Max - Min) * 100
+// For highBest (Jump): min=Worst(200), max=Best(300). Val=300 -> 100%. Val=200 -> 0%.
+// Formula: (Val - Min) / (Max - Min) * 100
+const calculateStatScore = (val: number, bestOrMin: number, worstOrMax: number, lowBest: boolean): number => {
+    if (isNaN(val)) return 0;
+
+    // Safety check for flat range
+    if (bestOrMin === worstOrMax) return 100;
 
     let score = 0;
     if (lowBest) {
-        // e.g. 4.2 is 100, 5.2 is 0
-        score = 100 - ((val - min) / (max - min)) * 100;
+        // lowBest=true. "bestOrMin" is the lowest value (BEST). "worstOrMax" is the highest value (WORST).
+        // scale: Worst(Max) -> 0, Best(Min) -> 100
+        score = ((worstOrMax - val) / (worstOrMax - bestOrMin)) * 100;
     } else {
-        // e.g. 300 is 100, 200 is 0
-        score = ((val - min) / (max - min)) * 100;
+        // lowBest=false. "bestOrMin" is the lowest value (WORST). "worstOrMax" is the highest value (BEST).
+        // scale: Worst(Min) -> 0, Best(Max) -> 100
+        score = ((val - bestOrMin) / (worstOrMax - bestOrMin)) * 100;
     }
     return Math.max(0, Math.min(100, Math.round(score)));
 };
