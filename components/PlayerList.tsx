@@ -74,13 +74,13 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                             className="group cursor-pointer"
                         >
                             {/* MOBILE LAYOUT: Compact List Card */}
-                            <div className="flex md:hidden bg-surface/50 border border-white/5 rounded-lg overflow-hidden active:scale-[0.98] transition-transform min-h-[6rem]">
+                            <div className="flex md:hidden bg-surface/50 border border-white/5 rounded-lg overflow-hidden active:scale-[0.98] transition-transform h-24">
                                 {/* Avatar */}
-                                <div className="w-24 relative flex-shrink-0">
+                                <div className="w-24 h-24 relative flex-shrink-0">
                                     <img
                                         src={player.image}
                                         alt={player.name}
-                                        className="absolute inset-0 w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all"
+                                        className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all"
                                     />
                                     <div className="absolute top-0 left-0 bg-volt text-black font-bold font-display text-sm px-1.5 py-0.5 z-10">
                                         #{player.number}
@@ -91,15 +91,10 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                 <div className="flex-1 p-3 flex flex-col justify-center relative">
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <h3 className="text-xl font-display font-bold uppercase leading-none text-white mb-1">
+                                            <h3 className="text-xl font-display font-bold uppercase leading-none text-white mb-1 flex items-center gap-1.5">
                                                 {player.name}
+                                                {player.isSigned && <BadgeCheck className="w-4 h-4 text-volt fill-volt/10" />}
                                             </h3>
-                                            {player.isSigned && (
-                                                <div className="flex items-center gap-1 mb-1">
-                                                    <BadgeCheck className="w-4 h-4 text-volt fill-volt/10" />
-                                                    <span className="text-[10px] font-sans font-bold text-volt tracking-wider uppercase pt-0.5">Signed Athlete</span>
-                                                </div>
-                                            )}
                                             <span className="text-volt text-[10px] font-bold uppercase tracking-widest bg-volt/10 px-2 py-0.5 rounded inline-block">
                                                 {player.position}
                                             </span>
@@ -138,16 +133,11 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                         <p className="text-volt text-xs font-bold uppercase tracking-widest mb-1">
                                             {player.position}
                                         </p>
-                                        <h3 className="text-3xl font-display font-bold uppercase md:tracking-wide leading-none mb-2">
+                                        <h3 className="text-3xl font-display font-bold uppercase md:tracking-wide leading-none mb-2 flex items-center gap-2">
                                             {player.name}
+                                            {player.isSigned && <BadgeCheck className="w-6 h-6 text-volt fill-volt/10" />}
                                         </h3>
                                         <div className="h-1 w-0 bg-volt group-hover:w-full transition-all duration-500 ease-out mb-2"></div>
-                                        {player.isSigned && (
-                                            <div className="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                <BadgeCheck className="w-5 h-5 text-volt fill-volt/10" />
-                                                <span className="text-xs font-sans font-bold text-volt tracking-widest uppercase pt-0.5">Signed Athlete</span>
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
                             </div>
