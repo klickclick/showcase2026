@@ -30,6 +30,7 @@ export interface Team {
   name: string;
   slogan: string;
   image: string; // Cover image for the team
+  imageStyle?: string; // Optional custom tailwind classes
   players: Player[];
 }
 

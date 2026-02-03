@@ -68,7 +68,7 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
               <img
                 src={team.image}
                 alt={team.name}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0"
+                className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0 ${team.imageStyle || 'object-cover'}`}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent md:bg-gradient-to-t md:from-black md:via-transparent md:to-transparent opacity-90"></div>
             </div>
@@ -76,7 +76,7 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
             {/* Content - Optimized for quick scanning on mobile */}
             <div className="absolute inset-0 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-end p-6 md:p-8">
               <div className="flex flex-col z-10 w-full">
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold uppercase md:tracking-wide leading-none text-white drop-shadow-lg">
+                <h2 className={`${team.name.length > 25 ? 'text-2xl md:text-3xl' : 'text-3xl md:text-5xl lg:text-6xl'} font-display font-bold uppercase md:tracking-wide leading-none text-white drop-shadow-lg`}>
                   {team.name}
                 </h2>
                 <p className="text-volt font-sans font-bold text-[10px] md:text-sm tracking-widest uppercase mt-1 md:mt-2 opacity-90">

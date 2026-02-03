@@ -184,6 +184,7 @@ export const TEAMS: Team[] = [
     name: 'Borussia Mönchengladbach Integrated Academy',
     slogan: 'Pick Team to see full Roster.',
     image: "/logo-lockup-isa-gladbach-1200.png",
+    imageStyle: 'object-contain p-8',
     players: generateSquad('t7')
   }
 ];
