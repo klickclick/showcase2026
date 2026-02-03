@@ -138,16 +138,16 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                         <p className="text-volt text-xs font-bold uppercase tracking-widest mb-1">
                                             {player.position}
                                         </p>
-                                        <h3 className="text-3xl font-display font-bold uppercase md:tracking-wide leading-none mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+                                        <h3 className="text-3xl font-display font-bold uppercase md:tracking-wide leading-none mb-2">
                                             {player.name}
-                                            {player.isSigned && (
-                                                <div className="flex items-center gap-1.5">
-                                                    <BadgeCheck className="w-5 h-5 text-volt fill-volt/10" />
-                                                    <span className="text-xs font-sans font-bold text-volt tracking-widest uppercase pt-0.5">Signed Athlete</span>
-                                                </div>
-                                            )}
                                         </h3>
-                                        <div className="h-1 w-0 bg-volt group-hover:w-full transition-all duration-500 ease-out"></div>
+                                        <div className="h-1 w-0 bg-volt group-hover:w-full transition-all duration-500 ease-out mb-2"></div>
+                                        {player.isSigned && (
+                                            <div className="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <BadgeCheck className="w-5 h-5 text-volt fill-volt/10" />
+                                                <span className="text-xs font-sans font-bold text-volt tracking-widest uppercase pt-0.5">Signed Athlete</span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
