@@ -16,7 +16,16 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="min-h-screen w-full relative bg-black flex flex-col md:flex-row overflow-x-hidden"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={{ left: 0.05, right: 0.2 }}
+            onDragEnd={(_, info) => {
+                // Swipe Left to Right (Positive X) -> Back
+                if (info.offset.x > 100 && info.velocity.x > 20) {
+                    onBack();
+                }
+            }}
+            className="min-h-screen w-full relative bg-black flex flex-col md:flex-row overflow-x-hidden touch-pan-y"
         >
             {/* Sticky Mobile Back Button */}
             <motion.button
@@ -56,7 +65,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                     onClick={onBack}
-                    className="hidden md:flex absolute top-24 left-12 z-20 items-center space-x-2 text-white hover:text-volt transition-colors bg-black/50 backdrop-blur-md px-4 py-2 rounded-full"
+                    className="hidden md:flex absolute top-36 left-12 z-20 items-center space-x-2 text-white hover:text-volt transition-colors bg-black/50 backdrop-blur-md px-4 py-2 rounded-full"
                 >
                     <ArrowLeft className="w-5 h-5" />
                     <span className="uppercase font-bold tracking-widest text-xs">Back to Squad</span>

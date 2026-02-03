@@ -16,7 +16,15 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="min-h-screen w-full relative pt-24 md:pt-32 pb-12 px-0 md:px-12 flex flex-col bg-black"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={{ left: 0.05, right: 0.2 }}
+            onDragEnd={(_, info) => {
+                if (info.offset.x > 100 && info.velocity.x > 20) {
+                    onBack();
+                }
+            }}
+            className="min-h-screen w-full relative pt-24 md:pt-32 pb-12 px-0 md:px-12 flex flex-col bg-black touch-pan-y"
         >
             {/* Background Decor */}
             <div className="fixed top-0 right-0 w-1/2 h-screen opacity-10 pointer-events-none z-0">
