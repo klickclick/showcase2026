@@ -33,6 +33,15 @@ const item: Variants = {
 };
 
 const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <motion.div
       variants={container}
@@ -61,14 +70,22 @@ const TeamGrid: React.FC<TeamGridProps> = ({ teams, onSelectTeam }) => {
             variants={item}
             onClick={() => onSelectTeam(team)}
             whileTap={{ scale: 0.98 }}
+            // Mobile Spotlight: When in center of viewport, activate focused state
+            whileInView={isMobile ? { scale: 1.02 } : undefined}
+            viewport={{ amount: 0.6, margin: "0px 0px -10% 0px" }}
             className="group relative w-full h-full cursor-pointer overflow-hidden rounded-sm border-l-4 border-transparent hover:border-volt bg-surface transition-all duration-300"
           >
             {/* Background Image */}
             <div className="absolute inset-0">
-              <img
+              <motion.img
                 src={team.image}
                 alt={team.name}
-                className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0 ${team.imageStyle || 'object-cover'}`}
+                // Mobile: Grayscale -> Color when in view
+                // Desktop: Grayscale -> Color on hover
+                initial={{ filter: 'grayscale(100%)', opacity: 0.6, scale: 1 }}
+                whileInView={isMobile ? { filter: 'grayscale(0%)', opacity: 1, scale: 1.1 } : undefined}
+                animate={{ transition: { duration: 0.5 } }}
+                className={`w-full h-full transition-all duration-700 ease-out md:group-hover:scale-110 md:opacity-60 md:grayscale md:group-hover:grayscale-0 md:group-hover:opacity-80 ${team.imageStyle || 'object-cover'}`}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent md:bg-gradient-to-t md:from-black md:via-transparent md:to-transparent opacity-90"></div>
             </div>
