@@ -91,15 +91,15 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                 <div className="flex-1 p-3 flex flex-col justify-center relative">
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <h3 className="text-xl font-display font-bold uppercase leading-none text-white mb-1 flex items-center gap-2 flex-wrap">
+                                            <h3 className="text-xl font-display font-bold uppercase leading-none text-white mb-1">
                                                 {player.name}
-                                                {player.isSigned && (
-                                                    <div className="flex items-center gap-1">
-                                                        <BadgeCheck className="w-4 h-4 text-volt fill-volt/10" />
-                                                        <span className="text-[10px] font-sans font-bold text-volt tracking-wider uppercase pt-0.5">Signed</span>
-                                                    </div>
-                                                )}
                                             </h3>
+                                            {player.isSigned && (
+                                                <div className="flex items-center gap-1 mb-1">
+                                                    <BadgeCheck className="w-4 h-4 text-volt fill-volt/10" />
+                                                    <span className="text-[10px] font-sans font-bold text-volt tracking-wider uppercase pt-0.5">Signed Athlete</span>
+                                                </div>
+                                            )}
                                             <span className="text-volt text-[10px] font-bold uppercase tracking-widest bg-volt/10 px-2 py-0.5 rounded inline-block">
                                                 {player.position}
                                             </span>
