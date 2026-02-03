@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Player } from '../types';
-import { ArrowLeft, MapPin, Shield, Activity, GraduationCap, Calendar, BadgeCheck } from 'lucide-react';
+import { ArrowLeft, MapPin, Shield, Activity, GraduationCap, Calendar, BadgeCheck, Ban } from 'lucide-react';
 
 interface PlayerCardProps {
     player: Player;
@@ -106,7 +106,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                             </div>
                         ) : (
                             <div className="flex items-center gap-2 md:gap-3">
-                                <Shield className="w-6 h-6 md:w-10 md:h-10 text-gray-500 fill-gray-500/10" />
+                                <Ban className="w-6 h-6 md:w-10 md:h-10 text-gray-500/50" />
                                 <span className="text-sm md:text-xl font-sans font-bold text-gray-500 tracking-widest uppercase pt-1 opacity-90">
                                     Not verified
                                 </span>

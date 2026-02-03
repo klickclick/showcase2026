@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Team, Player } from '../types';
-import { ArrowLeft, ChevronRight, BadgeCheck, Shield } from 'lucide-react';
+import { ArrowLeft, ChevronRight, BadgeCheck, Shield, Ban } from 'lucide-react';
 
 interface PlayerListProps {
     team: Team;
@@ -96,7 +96,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                                 {player.isSigned ? (
                                                     <BadgeCheck className="w-4 h-4 text-[#004890] fill-[#004890]/10" />
                                                 ) : (
-                                                    <Shield className="w-3 h-3 text-gray-600" />
+                                                    <Ban className="w-3 h-3 text-gray-500/50" />
                                                 )}
                                             </h3>
                                             <span className="text-volt text-[10px] font-bold uppercase tracking-widest bg-volt/10 px-2 py-0.5 rounded inline-block">
@@ -142,7 +142,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                             {player.isSigned ? (
                                                 <BadgeCheck className="w-6 h-6 text-[#004890] fill-[#004890]/10" />
                                             ) : (
-                                                <Shield className="w-5 h-5 text-gray-600" />
+                                                <Ban className="w-5 h-5 text-gray-500/50" />
                                             )}
                                         </h3>
                                         <div className="h-1 w-0 bg-volt group-hover:w-full transition-all duration-500 ease-out mb-2"></div>
