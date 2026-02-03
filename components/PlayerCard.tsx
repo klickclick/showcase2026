@@ -97,11 +97,18 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         className="text-4xl md:text-7xl font-display font-bold uppercase leading-[0.9] md:tracking-wide mb-6 text-white flex items-center gap-3 md:gap-4"
                     >
                         {player.name}
-                        {player.isSigned && (
+                        {player.isSigned ? (
                             <div className="flex items-center gap-2 md:gap-3">
-                                <BadgeCheck className="w-6 h-6 md:w-10 md:h-10 text-volt fill-volt/10" />
-                                <span className="text-sm md:text-xl font-sans font-bold text-volt tracking-widest uppercase pt-1 opacity-90">
-                                    Signed Athlete
+                                <BadgeCheck className="w-6 h-6 md:w-10 md:h-10 text-[#004890] fill-[#004890]/10" />
+                                <span className="text-sm md:text-xl font-sans font-bold text-[#004890] tracking-widest uppercase pt-1 opacity-90">
+                                    Verified by Athletes USA
+                                </span>
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-2 md:gap-3">
+                                <Shield className="w-6 h-6 md:w-10 md:h-10 text-gray-500 fill-gray-500/10" />
+                                <span className="text-sm md:text-xl font-sans font-bold text-gray-500 tracking-widest uppercase pt-1 opacity-90">
+                                    Not verified
                                 </span>
                             </div>
                         )}
@@ -111,7 +118,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-surface/30 p-4 rounded-lg border border-white/5">
                         <div className="flex items-center space-x-3 text-sm">
                             <MapPin className="w-4 h-4 text-volt flex-shrink-0" />
-                            <span className="text-gray-400 uppercase tracking-wider text-[10px] md:text-xs">From:</span>
+                            <span className="text-gray-400 uppercase tracking-wider text-[10px] md:text-xs">Nationality:</span>
                             <span className="text-white font-bold truncate">{player.origin}</span>
                         </div>
                         <div className="flex items-center space-x-3 text-sm">
