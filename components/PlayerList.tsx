@@ -74,13 +74,13 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                             className="group cursor-pointer"
                         >
                             {/* MOBILE LAYOUT: Compact List Card */}
-                            <div className="flex md:hidden bg-surface/50 border border-white/5 rounded-lg overflow-hidden active:scale-[0.98] transition-transform">
+                            <div className="flex md:hidden bg-surface/50 border border-white/5 rounded-lg overflow-hidden active:scale-[0.98] transition-transform min-h-[6rem]">
                                 {/* Avatar */}
-                                <div className="w-24 h-24 relative flex-shrink-0">
+                                <div className="w-24 relative flex-shrink-0">
                                     <img
                                         src={player.image}
                                         alt={player.name}
-                                        className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all"
+                                        className="absolute inset-0 w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all"
                                     />
                                     <div className="absolute top-0 left-0 bg-volt text-black font-bold font-display text-sm px-1.5 py-0.5 z-10">
                                         #{player.number}
