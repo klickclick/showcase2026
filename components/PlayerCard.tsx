@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Player } from '../types';
-import { ArrowLeft, MapPin, Shield, Activity, GraduationCap, Calendar } from 'lucide-react';
+import { ArrowLeft, MapPin, Shield, Activity, GraduationCap, Calendar, BadgeCheck } from 'lucide-react';
 
 interface PlayerCardProps {
     player: Player;
@@ -94,9 +94,17 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="text-4xl md:text-7xl font-display font-bold uppercase leading-[0.9] md:tracking-wide mb-6 text-white"
+                        className="text-4xl md:text-7xl font-display font-bold uppercase leading-[0.9] md:tracking-wide mb-6 text-white flex items-center gap-3 md:gap-4"
                     >
                         {player.name}
+                        {player.isSigned && (
+                            <div className="relative group/badge">
+                                <BadgeCheck className="w-8 h-8 md:w-12 md:h-12 text-volt fill-volt/10" />
+                                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2 py-1 bg-gray-800 text-white text-[10px] font-sans font-bold uppercase tracking-wider rounded opacity-0 group-hover/badge:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                    Approved Athlete
+                                </div>
+                            </div>
+                        )}
                     </motion.h1>
 
                     {/* Compact Bio Details */}

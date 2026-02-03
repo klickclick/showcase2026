@@ -17,9 +17,9 @@ export interface Player {
   showcaseTeam?: string; // ID or Name of the Showcase Squad (e.g. 't1', 'Team 1')
   height: string;
   foot: "Right" | "Left" | "Both";
-  gpa: string;
   eligibility: string;
   dob: string;
+  isSigned: boolean;
 
   image: string;
   stats: Stats[];

@@ -113,6 +113,7 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                                 gpa: clean(row.GPA),
                                 eligibility: clean(row.Eligibility),
                                 dob: clean(row.DOB) || clean(row.Date_of_Birth) || clean(row.Birthday) || "",
+                                isSigned: (clean(row.Signed).toLowerCase() === 'yes' || clean(row.Signed).toLowerCase() === 'true' || clean(row.Signed) === '1'),
                                 stats: stats
                             };
                         });
