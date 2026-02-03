@@ -91,9 +91,14 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                 <div className="flex-1 p-3 flex flex-col justify-center relative">
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <h3 className="text-xl font-display font-bold uppercase leading-none text-white mb-1 flex items-center gap-2">
+                                            <h3 className="text-xl font-display font-bold uppercase leading-none text-white mb-1 flex items-center gap-2 flex-wrap">
                                                 {player.name}
-                                                {player.isSigned && <BadgeCheck className="w-4 h-4 text-volt fill-volt/10" />}
+                                                {player.isSigned && (
+                                                    <div className="flex items-center gap-1">
+                                                        <BadgeCheck className="w-4 h-4 text-volt fill-volt/10" />
+                                                        <span className="text-[10px] font-sans font-bold text-volt tracking-wider uppercase pt-0.5">Signed</span>
+                                                    </div>
+                                                )}
                                             </h3>
                                             <span className="text-volt text-[10px] font-bold uppercase tracking-widest bg-volt/10 px-2 py-0.5 rounded inline-block">
                                                 {player.position}
@@ -133,9 +138,14 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                         <p className="text-volt text-xs font-bold uppercase tracking-widest mb-1">
                                             {player.position}
                                         </p>
-                                        <h3 className="text-3xl font-display font-bold uppercase md:tracking-wide leading-none mb-2 flex items-center gap-2">
+                                        <h3 className="text-3xl font-display font-bold uppercase md:tracking-wide leading-none mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
                                             {player.name}
-                                            {player.isSigned && <BadgeCheck className="w-5 h-5 text-volt fill-volt/10" />}
+                                            {player.isSigned && (
+                                                <div className="flex items-center gap-1.5">
+                                                    <BadgeCheck className="w-5 h-5 text-volt fill-volt/10" />
+                                                    <span className="text-xs font-sans font-bold text-volt tracking-widest uppercase pt-0.5">Signed Athlete</span>
+                                                </div>
+                                            )}
                                         </h3>
                                         <div className="h-1 w-0 bg-volt group-hover:w-full transition-all duration-500 ease-out"></div>
                                     </div>

@@ -98,11 +98,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                     >
                         {player.name}
                         {player.isSigned && (
-                            <div className="relative group/badge">
-                                <BadgeCheck className="w-8 h-8 md:w-12 md:h-12 text-volt fill-volt/10" />
-                                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2 py-1 bg-gray-800 text-white text-[10px] font-sans font-bold uppercase tracking-wider rounded opacity-0 group-hover/badge:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                                    Approved Athlete
-                                </div>
+                            <div className="flex items-center gap-2 md:gap-3">
+                                <BadgeCheck className="w-6 h-6 md:w-10 md:h-10 text-volt fill-volt/10" />
+                                <span className="text-sm md:text-xl font-sans font-bold text-volt tracking-widest uppercase pt-1 opacity-90">
+                                    Signed Athlete
+                                </span>
                             </div>
                         )}
                     </motion.h1>
