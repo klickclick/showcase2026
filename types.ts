@@ -19,7 +19,8 @@ export interface Player {
   foot: "Right" | "Left" | "Both";
   eligibility: string;
   dob: string;
-  isSigned: boolean;
+  isSigned?: boolean;
+  gpa?: string;
 
   image: string;
   stats: Stats[];
