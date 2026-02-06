@@ -80,16 +80,11 @@ const generateCombineStats = (positionString: string): Stats[] => {
   if (category === "GK") broadRaw = randInt(250, 300); // GKs have explosive legs
   const broadScore = Math.max(40, Math.min(100, ((broadRaw - 200) / 100) * 100));
 
-  // 3. Counter Movement Jump (CMJ) (Higher is better)
-  // Range: 40cm to 70cm
-  let cmjRaw = randInt(50, 80);
-  if (category === "GK" || positionString.includes("CB")) cmjRaw = randInt(60, 85); // Aerial threats
-  const cmjScore = Math.max(40, Math.min(100, ((cmjRaw - 30) / 50) * 100));
+  // 3. CMJ Removed as requested
 
   return [
     { label: "40 Yard Dash", value: Math.round(speedScore), displayValue: `${speedRaw}s` },
-    { label: "Broad Jump", value: Math.round(broadScore), displayValue: `${broadRaw} cm` },
-    { label: "CMJ (Vert)", value: Math.round(cmjScore), displayValue: `${cmjRaw} cm` }
+    { label: "Broad Jump", value: Math.round(broadScore), displayValue: `${broadRaw} cm` }
   ];
 };
 

@@ -30,12 +30,10 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                         // PASS 1: Calculate Min/Max for Dynamic Scaling
                         let minSpeed = 100, maxSpeed = 0;
                         let minBroad = 500, maxBroad = 0;
-                        let minCMJ = 100, maxCMJ = 0;
 
                         rawRows.forEach(row => {
                             const speed = parseFloat(row.Speed_40yd);
                             const broad = parseFloat(row.Broad_Jump);
-                            const cmj = parseFloat(row.CMJ_Vert);
 
                             if (!isNaN(speed) && speed > 0) {
                                 if (speed < minSpeed) minSpeed = speed; // Lower is better (Best)
@@ -45,16 +43,11 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                                 if (broad < minBroad) minBroad = broad; // Lower is worse (Worst)
                                 if (broad > maxBroad) maxBroad = broad; // Higher is better (Best)
                             }
-                            if (!isNaN(cmj) && cmj > 0) {
-                                if (cmj < minCMJ) minCMJ = cmj; // Lower is worse (Worst)
-                                if (cmj > maxCMJ) maxCMJ = cmj; // Higher is better (Best)
-                            }
                         });
 
                         // Fallback defaults if data is missing or single entry to avoid /0
                         if (maxSpeed === minSpeed) { maxSpeed = minSpeed + 1; }
                         if (maxBroad === minBroad) { minBroad = 0; }
-                        if (maxCMJ === minCMJ) { minCMJ = 0; }
 
                         const players: Player[] = rawRows.map((rawRow, index) => {
                             // Helper to clean strings
@@ -76,10 +69,6 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                             const broadVal = parseFloat(row.Broad_Jump);
                             const broadScore = isNaN(broadVal) ? 0 : calculateStatScore(broadVal, minBroad, maxBroad, false);
 
-                            // CMJ: High is Best. Range [Min, Max] -> [0, 100]
-                            const cmjVal = parseFloat(row.CMJ_Vert);
-                            const cmjScore = isNaN(cmjVal) ? 0 : calculateStatScore(cmjVal, minCMJ, maxCMJ, false);
-
                             const stats: Stats[] = [
                                 {
                                     label: "40 Yard Dash",
@@ -90,11 +79,6 @@ export const fetchPlayerData = async (password: string): Promise<Player[]> => {
                                     label: "Broad Jump",
                                     value: broadScore,
                                     displayValue: clean(row.Broad_Jump) ? `${clean(row.Broad_Jump)}cm` : "-"
-                                },
-                                {
-                                    label: "CMJ (Vert)",
-                                    value: cmjScore,
-                                    displayValue: clean(row.CMJ_Vert) ? `${clean(row.CMJ_Vert)}cm` : "-"
                                 }
                             ];
 
