@@ -19,6 +19,22 @@ const App: React.FC = () => {
 
   // Check for valid session on mount
   useEffect(() => {
+    // 1. Check for URL "code" param (QR Code Login)
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+
+    if (code) {
+      handleLogin(code).then((success) => {
+        if (success) {
+          // Clean URL (remove code param so it's not visible/shareable easily from address bar)
+          const newUrl = window.location.pathname;
+          window.history.replaceState({}, '', newUrl);
+        }
+      });
+      return; // Skip checking storage if we have a code
+    }
+
+    // 2. Check for valid session in Storage
     const sessionDetail = localStorage.getItem('auth_session');
     if (sessionDetail) {
       try {
