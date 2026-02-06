@@ -187,10 +187,10 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         </div>
                         <div className="bg-surface border border-white/10 p-3 md:p-4 flex flex-col justify-between">
                             <div className="flex justify-between items-start mb-2">
-                                <span className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Foot</span>
+                                <span className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Position</span>
                                 <Activity className="w-3 h-3 text-volt" />
                             </div>
-                            <span className="text-white font-display text-lg md:text-2xl tracking-wide">{player.foot}</span>
+                            <span className="text-white font-display text-lg md:text-2xl tracking-wide">{player.position}</span>
                         </div>
                         <div className="bg-surface border border-white/10 p-3 md:p-4 flex flex-col justify-between">
                             <div className="flex justify-between items-start mb-2">
@@ -199,13 +199,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                             </div>
                             <span className="text-white font-display text-lg md:text-2xl tracking-wide">{player.gpa}</span>
                         </div>
-                        <div className="bg-surface border border-white/10 p-3 md:p-4 flex flex-col justify-between">
-                            <div className="flex justify-between items-start mb-2">
-                                <span className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Position</span>
-                                <Activity className="w-3 h-3 text-volt" />
-                            </div>
-                            <span className="text-white font-display text-lg md:text-2xl tracking-wide">{player.position}</span>
-                        </div>
+
                         <div className="bg-surface border border-white/10 p-3 md:p-4 flex flex-col justify-between">
                             <div className="flex justify-between items-start mb-2">
                                 <span className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Recruiting Class</span>
