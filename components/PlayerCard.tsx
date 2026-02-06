@@ -84,9 +84,6 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         className="flex flex-wrap items-center gap-3 mb-2 md:mb-4"
                     >
                         <span className="text-volt font-display font-bold text-5xl md:text-8xl">#{player.number}</span>
-                        <span className="text-white/80 font-sans font-bold uppercase tracking-widest text-xs md:text-sm border border-white/20 px-3 py-1 rounded bg-surface/50 backdrop-blur-sm">
-                            {player.position}
-                        </span>
                     </motion.div>
 
                     {/* Name */}
@@ -201,6 +198,13 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                                 <GraduationCap className="w-3 h-3 text-volt" />
                             </div>
                             <span className="text-white font-display text-lg md:text-2xl tracking-wide">{player.gpa}</span>
+                        </div>
+                        <div className="bg-surface border border-white/10 p-3 md:p-4 flex flex-col justify-between">
+                            <div className="flex justify-between items-start mb-2">
+                                <span className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Position</span>
+                                <Activity className="w-3 h-3 text-volt" />
+                            </div>
+                            <span className="text-white font-display text-lg md:text-2xl tracking-wide">{player.position}</span>
                         </div>
                         <div className="bg-surface border border-white/10 p-3 md:p-4 flex flex-col justify-between">
                             <div className="flex justify-between items-start mb-2">
