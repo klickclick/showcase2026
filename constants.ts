@@ -141,35 +141,35 @@ export const TEAMS: Team[] = [
     id: 't1',
     name: 'Team 1 (Blue)',
     slogan: 'Pick Team to see full Roster.',
-    image: TEAM_IMGS[0],
+    image: "/Blau.jpeg",
     players: generateSquad('t1')
   },
   {
     id: 't2',
     name: 'Team 2 (Green)',
     slogan: 'Pick Team to see full Roster.',
-    image: TEAM_IMGS[1],
+    image: "/Grün.jpeg",
     players: generateSquad('t2')
   },
   {
     id: 't3',
     name: 'Team 3 (White)',
     slogan: 'Pick Team to see full Roster.',
-    image: TEAM_IMGS[2],
+    image: "/Weiß.jpeg",
     players: generateSquad('t3')
   },
   {
     id: 't4',
     name: 'Team 4 (Light Blue)',
     slogan: 'Pick Team to see full Roster.',
-    image: TEAM_IMGS[3],
+    image: "/Light Blue.jpeg",
     players: generateSquad('t4')
   },
   {
     id: 't5',
     name: 'Team 5 (Black)',
     slogan: 'Pick Team to see full Roster.',
-    image: TEAM_IMGS[4],
+    image: "/Schwarz.jpeg",
     players: generateSquad('t5')
   },
   {
