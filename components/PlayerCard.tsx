@@ -40,8 +40,8 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
             {/* Left Side - Image (Reduced height on mobile) */}
             <div className="w-full h-[55vh] md:w-1/2 md:h-screen relative flex-shrink-0">
                 <motion.div
-                    initial={{ scale: 1.1, filter: 'grayscale(100%)' }}
-                    animate={{ scale: 1, filter: 'grayscale(0%)' }}
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     className="w-full h-full"
                 >

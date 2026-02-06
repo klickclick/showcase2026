@@ -80,7 +80,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                     <img
                                         src={player.image}
                                         alt={player.name}
-                                        className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all"
+                                        className="w-full h-full object-cover object-top transition-all"
                                     />
                                     <div className="absolute top-0 left-0 bg-volt text-black font-bold font-display text-sm px-1.5 py-0.5 z-10">
                                         #{player.number}
@@ -125,7 +125,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ team, onSelectPlayer, onBack })
                                 <img
                                     src={player.image}
                                     alt={player.name}
-                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 filter grayscale group-hover:grayscale-0"
+                                    className="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-all duration-700"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
 
