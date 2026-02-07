@@ -103,7 +103,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.8 }}
                             onClick={() => setIsRequestModalOpen(true)}
-                            className="bg-volt hover:bg-white text-black font-bold uppercase tracking-wider text-xs md:text-sm px-4 py-2 md:px-6 md:py-3 rounded-full shadow-[0_0_20px_rgba(210,255,0,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all transform hover:-translate-y-1 flex items-center gap-2"
+                            className="bg-volt hover:bg-white text-black font-bold uppercase tracking-wider text-xs md:text-sm px-4 py-2 md:px-6 md:py-3 rounded-full shadow-[0_0_20px_rgba(210,255,0,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all transform hover:-translate-y-1 flex items-center gap-2 md:mt-6"
                         >
                             <span>Request Info</span>
                             <Send className="w-3 h-3 md:w-4 md:h-4" />
