@@ -154,6 +154,10 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, onClose, playerName
                                     </div>
 
                                     {/* Submit Button */}
+                                    <div className="text-xs text-gray-400 text-center px-1">
+                                        You will receive all information and contact details about the player via email after the showcase.
+                                    </div>
+
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
