@@ -181,5 +181,12 @@ export const TEAMS: Team[] = [
     image: "/logo-lockup-isa-gladbach-1200.png",
     imageStyle: 'object-contain p-8',
     players: generateSquad('t7')
+  },
+  {
+    id: 't8',
+    name: 'Womens (Dark Blue)',
+    slogan: 'Pick Team to see full Roster.',
+    image: "/Generic_DarkBlue.jpeg", // Placeholder or assumes file exists
+    players: generateSquad('t8')
   }
 ];
