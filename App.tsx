@@ -214,6 +214,32 @@ const App: React.FC = () => {
     setTeams(updatedTeams);
   };
 
+  // TEMPORARY: Log Player Links to Console for User
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    // Check if we have real players (more than just placeholder)
+    const totalPlayers = teams.reduce((acc, t) => acc + t.players.length, 0);
+    if (totalPlayers === 0) return;
+
+    let linkList = "PLAYER LINKS LIST:\n";
+    linkList += "==================\n";
+
+    teams.forEach(team => {
+      if (team.players.length === 0) return;
+      linkList += `\nTeam: ${team.name}\n`;
+      team.players.forEach(p => {
+        // Construct Link
+        // Current URL origin + search params
+        const origin = window.location.origin;
+        const link = `${origin}/?team=${team.id}&player=${p.id}`;
+        linkList += `${p.name} - ${link}\n`;
+      });
+    });
+
+    console.log(linkList);
+  }, [teams, isAuthenticated]);
+
   const handleSelectTeam = (team: Team) => {
     setSelectedTeam(team);
     setView(ViewState.PLAYERS);
