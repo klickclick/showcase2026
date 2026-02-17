@@ -16,6 +16,38 @@ const App: React.FC = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [teams, setTeams] = useState<Team[]>(TEAMS);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const hasRestoredState = React.useRef(false);
+
+  // Restore state from URL on initial load / login
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    if (hasRestoredState.current) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const teamId = params.get('team');
+    const playerId = params.get('player');
+
+    if (teamId) {
+      const team = teams.find(t => t.id === teamId);
+      if (team) {
+        setSelectedTeam(team);
+        if (playerId) {
+          // Find player in the team's squad
+          const player = team.players.find(p => p.id === playerId);
+          if (player) {
+            setSelectedPlayer(player);
+            setView(ViewState.PLAYER_DETAIL);
+          } else {
+            // Fallback to team view if player not found
+            setView(ViewState.PLAYERS);
+          }
+        } else {
+          setView(ViewState.PLAYERS);
+        }
+      }
+    }
+    hasRestoredState.current = true;
+  }, [isAuthenticated, teams]);
 
   // Check for valid session on mount
   useEffect(() => {

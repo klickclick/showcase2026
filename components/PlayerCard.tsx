@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Player } from '../types';
-import { ArrowLeft, MapPin, Shield, Activity, GraduationCap, Calendar, BadgeCheck, Ban, Send } from 'lucide-react';
+import { ArrowLeft, MapPin, Shield, Activity, GraduationCap, Calendar, BadgeCheck, Ban, Send, Share } from 'lucide-react';
 
 import RequestModal from './RequestModal'; // Import the new component
 
@@ -12,6 +12,14 @@ interface PlayerCardProps {
 
 const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
     const [isRequestModalOpen, setIsRequestModalOpen] = React.useState(false); // State for modal
+    const [showCopyFeedback, setShowCopyFeedback] = React.useState(false);
+
+    const handleShare = () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            setShowCopyFeedback(true);
+            setTimeout(() => setShowCopyFeedback(false), 2000);
+        });
+    };
 
     return (
         <motion.div
@@ -98,16 +106,29 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, onBack }) => {
                         </motion.div>
 
                         {/* Request Button (Mobile/Desktop) */}
-                        <motion.button
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.8 }}
-                            onClick={() => setIsRequestModalOpen(true)}
-                            className="bg-volt hover:bg-white text-black font-bold uppercase tracking-wider text-xs md:text-sm px-4 py-2 md:px-6 md:py-3 rounded-full shadow-[0_0_20px_rgba(210,255,0,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all transform hover:-translate-y-1 flex items-center gap-2 md:mt-6"
-                        >
-                            <span>Request Info</span>
-                            <Send className="w-3 h-3 md:w-4 md:h-4" />
-                        </motion.button>
+                        <div className="flex gap-2 md:gap-3 md:mt-6">
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.8 }}
+                                onClick={handleShare}
+                                className="bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider text-xs md:text-sm px-3 py-2 md:px-4 md:py-3 rounded-full backdrop-blur-md border border-white/10 transition-all transform hover:-translate-y-1 flex items-center gap-2"
+                            >
+                                <Share className="w-3 h-3 md:w-4 md:h-4" />
+                                <span>{showCopyFeedback ? 'Copied!' : 'Share'}</span>
+                            </motion.button>
+
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.85 }}
+                                onClick={() => setIsRequestModalOpen(true)}
+                                className="bg-volt hover:bg-white text-black font-bold uppercase tracking-wider text-xs md:text-sm px-4 py-2 md:px-6 md:py-3 rounded-full shadow-[0_0_20px_rgba(210,255,0,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all transform hover:-translate-y-1 flex items-center gap-2"
+                            >
+                                <span>Request Info</span>
+                                <Send className="w-3 h-3 md:w-4 md:h-4" />
+                            </motion.button>
+                        </div>
                     </div>
 
                     {/* Name */}
